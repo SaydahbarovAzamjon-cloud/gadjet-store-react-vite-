@@ -1,0 +1,5 @@
+export const COOKIE_NAME = "auth_token";
+export const ONE_YEAR_MS = 1000 * 60 * 60 * 24 * 365;
+export const UNAUTHED_ERR_MSG = "Please login (10001)";
+
+export const getLoginUrl = () => "/login";
