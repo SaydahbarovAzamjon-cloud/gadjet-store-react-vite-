@@ -3,17 +3,18 @@ import { useSearchParams } from "react-router-dom";
 import Header from "@/app/components/headers/Header";
 import Footer from "@/app/components/footer/Footer";
 import { Button } from "@/components/ui/button";
-import { Smartphone, Laptop, Watch, Tablet, ChevronLeft, ChevronRight } from "lucide-react";
+import { Smartphone, Laptop, Watch, Tablet, Headphones, ChevronLeft, ChevronRight } from "lucide-react";
 import ProductGrid from "@/app/screens/productsPage/sectionalComponents/ProductGrid";
 import StatisticsSection from "@/app/screens/homePage/sectionalComponents/StatisticsSection";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { fetchProducts } from "@/store/slices/productsSlice";
 
 const categories = [
-  { id: 1, name: "PHONE", label: "Mobile Phones", icon: Smartphone },
-  { id: 2, name: "LAPTOP", label: "Laptops", icon: Laptop },
-  { id: 3, name: "WATCH", label: "Watches", icon: Watch },
-  { id: 4, name: "TABLET", label: "Tablets", icon: Tablet },
+  { id: 1, name: "PHONE",   label: "Mobile Phones", icon: Smartphone },
+  { id: 2, name: "LAPTOP",  label: "Laptops",       icon: Laptop     },
+  { id: 3, name: "TABLET",  label: "Tablets",       icon: Tablet     },
+  { id: 4, name: "WATCH",   label: "Watch",         icon: Watch      },
+  { id: 5, name: "AIRPODS", label: "AirPods",       icon: Headphones },
 ];
 
 const sortOptions = [
@@ -33,29 +34,23 @@ export default function ProductsPage() {
   const [sortBy, setSortBy] = useState<string>("createdAt");
   const [currentPage, setCurrentPage] = useState(1);
 
-  // URL dan search va category qiymatlarini olish
-  const searchFromUrl = searchParams.get("search") || "";
-
-  // EventsSection dagi "Shop Now" /products?category=LAPTOP kabi yuboradi
-  // Sahifa ochilganda URL dagi category ni filter ga qo'yamiz
+  const searchFromUrl   = searchParams.get("search")   || "";
   const categoryFromUrl = searchParams.get("category") || "";
+
+  // EventsSection "Shop Now" bosilganda URL category ni filter ga qo'yamiz
   useEffect(() => {
-    if (categoryFromUrl) {
-      setSelectedCategory(categoryFromUrl);
-    }
+    if (categoryFromUrl) setSelectedCategory(categoryFromUrl);
   }, [categoryFromUrl]);
 
-  // Backend dan productlarni yuklab olish (search, category, sort bilan)
+  // Backend filter — har bir kategoriya to'g'ridan-to'g'ri backendga yuboriladi
   useEffect(() => {
-    dispatch(
-      fetchProducts({
-        page: 1,
-        limit: 100, // Barcha productni olib kelamiz, keyin frontda page qilamiz
-        order: sortBy,
-        productCategory: selectedCategory || undefined,
-        search: searchFromUrl || undefined,
-      })
-    );
+    dispatch(fetchProducts({
+      page: 1,
+      limit: 100,
+      order: sortBy,
+      productCategory: selectedCategory || undefined,
+      search: searchFromUrl || undefined,
+    }));
     setCurrentPage(1);
   }, [dispatch, sortBy, selectedCategory, searchFromUrl]);
 
