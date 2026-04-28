@@ -33,8 +33,17 @@ export default function ProductsPage() {
   const [sortBy, setSortBy] = useState<string>("createdAt");
   const [currentPage, setCurrentPage] = useState(1);
 
-  // URL dan search qiymatini olish
+  // URL dan search va category qiymatlarini olish
   const searchFromUrl = searchParams.get("search") || "";
+
+  // EventsSection dagi "Shop Now" /products?category=LAPTOP kabi yuboradi
+  // Sahifa ochilganda URL dagi category ni filter ga qo'yamiz
+  const categoryFromUrl = searchParams.get("category") || "";
+  useEffect(() => {
+    if (categoryFromUrl) {
+      setSelectedCategory(categoryFromUrl);
+    }
+  }, [categoryFromUrl]);
 
   // Backend dan productlarni yuklab olish (search, category, sort bilan)
   useEffect(() => {

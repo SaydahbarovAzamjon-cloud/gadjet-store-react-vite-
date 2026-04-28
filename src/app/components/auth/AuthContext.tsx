@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
   loginMember,
@@ -26,6 +27,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const dispatch = useAppDispatch();
   const { member, loading, error } = useAppSelector((state) => state.auth);
+  const navigate = useNavigate();
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 
   // On app load, try to restore session from cookie
@@ -42,10 +44,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setShowLogoutConfirm(true);
   };
 
-  // Dialog "Ha" bosilganda — backend logout + local state tozalash
+  // Dialog "Ha" bosilganda — backend logout + local state tozalash + home ga o'tish
   const confirmLogout = () => {
     setShowLogoutConfirm(false);
     dispatch(logoutMemberAsync());
+    navigate("/"); // logout dan keyin home sahifaga qaytish
   };
 
   // Dialog "Yo'q" bosilganda — yopish

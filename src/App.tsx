@@ -1,7 +1,8 @@
+import { useEffect } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/app/components/errors/NotFound";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import ErrorBoundary from "./app/components/errors/ErrorBoundary";
 import { ThemeProvider } from "./app/components/ThemeContext";
 import { AuthProvider } from "./app/components/auth/AuthContext";
@@ -17,10 +18,22 @@ import RegisterPage from "./app/screens/loginAndSignupPage/RegisterPage";
 import LoginPage from "./app/screens/loginAndSignupPage/LoginPage";
 
 
+// Har sahifa o'zgarganda oynani tepaga qaytaradi
+// navigate, Link, shop now — hammasi shu orqali o'tadi
+function ScrollToTop() {
+  const { pathname, search } = useLocation();
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, [pathname, search]);
+  return null;
+}
+
 function Router() {
   // make sure to consider if you need authentication for certain routes
   return (
-    <Routes>
+    <>
+      <ScrollToTop />
+      <Routes>
       {/* Public Routes */}
       <Route path="/products" element={<ProductsPage />} />
       <Route path="/help" element={<HelpPage />} />
@@ -38,6 +51,7 @@ function Router() {
       <Route path="*" element={<NotFound />} />
 
     </Routes>
+    </>
   );
 }
 
