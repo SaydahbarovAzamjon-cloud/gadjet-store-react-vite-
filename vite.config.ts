@@ -20,13 +20,13 @@ export default defineConfig({
         secure: false,
         cookieDomainRewrite: "localhost",
       },
-      "/product": {
+      "/product/": {
         target: "http://localhost:2005",
         changeOrigin: true,
         secure: false,
         cookieDomainRewrite: "localhost",
       },
-      "/order": {
+      "/order/": {
         target: "http://localhost:2005",
         changeOrigin: true,
         secure: false,

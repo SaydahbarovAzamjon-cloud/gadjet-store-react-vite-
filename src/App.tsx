@@ -33,9 +33,9 @@ function Router() {
       <Route path={"/orders"} element={<OrdersPage />} />
       <Route path={"/my-page"} element={<MyPage />} />
       <Route path={"/404"} element={<NotFound />} />
-      {/* Final fallback route */}
+      <Route path="/" element={<Home />} />
+      {/* 404 — har doim eng oxirida bo'lishi shart */}
       <Route path="*" element={<NotFound />} />
-      <Route path="/" element={<Home />} />           
 
     </Routes>
   );
