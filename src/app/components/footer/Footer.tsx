@@ -1,10 +1,10 @@
-import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin } from "lucide-react";
-import { Link } from "wouter";
+import { Instagram, Linkedin, Mail, Phone, MapPin, Send } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
     <footer className="bg-slate-900 border-t border-border">
-      {/* Newsletter section */}
+      {/* Newsletter */}
       <div className="bg-gradient-to-r from-slate-800 to-slate-900 py-12">
         <div className="container">
           <div className="max-w-2xl mx-auto text-center">
@@ -31,7 +31,8 @@ export default function Footer() {
       {/* Main footer */}
       <div className="container py-16">
         <div className="grid grid-cols-1 md:grid-cols-5 gap-8 mb-12">
-          {/* Brand */}
+
+          {/* Brand + Socials */}
           <div>
             <div className="flex items-center gap-2 mb-4">
               <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
@@ -39,34 +40,71 @@ export default function Footer() {
               </div>
               <span className="text-lg font-bold text-white">Gadjets</span>
             </div>
-            <p className="text-muted-foreground text-sm mb-4">
+            <p className="text-muted-foreground text-sm mb-6">
               Your trusted source for premium gadgets and smart devices.
             </p>
+
+            {/* Social icons — Instagram, LinkedIn, Telegram */}
             <div className="flex gap-3">
-              <a href="#" className="w-8 h-8 rounded-full bg-card hover:bg-accent/20 flex items-center justify-center transition-colors">
-                <Facebook className="w-4 h-4 text-muted-foreground hover:text-accent" />
+              <a
+                href="https://www.instagram.com/iamsaidakbarov__/"
+                target="_blank"
+                rel="noreferrer"
+                className="w-9 h-9 rounded-full bg-card hover:bg-pink-500/20 border border-border hover:border-pink-500 flex items-center justify-center transition-all group"
+                title="Instagram"
+              >
+                <Instagram className="w-4 h-4 text-muted-foreground group-hover:text-pink-400 transition-colors" />
               </a>
-              <a href="#" className="w-8 h-8 rounded-full bg-card hover:bg-accent/20 flex items-center justify-center transition-colors">
-                <Twitter className="w-4 h-4 text-muted-foreground hover:text-accent" />
+              <a
+                href="https://www.linkedin.com/in/azamjon-saydahbarov-a55647406/"
+                target="_blank"
+                rel="noreferrer"
+                className="w-9 h-9 rounded-full bg-card hover:bg-blue-500/20 border border-border hover:border-blue-500 flex items-center justify-center transition-all group"
+                title="LinkedIn"
+              >
+                <Linkedin className="w-4 h-4 text-muted-foreground group-hover:text-blue-400 transition-colors" />
               </a>
-              <a href="#" className="w-8 h-8 rounded-full bg-card hover:bg-accent/20 flex items-center justify-center transition-colors">
-                <Instagram className="w-4 h-4 text-muted-foreground hover:text-accent" />
-              </a>
-              <a href="#" className="w-8 h-8 rounded-full bg-card hover:bg-accent/20 flex items-center justify-center transition-colors">
-                <Linkedin className="w-4 h-4 text-muted-foreground hover:text-accent" />
+              <a
+                href="https://t.me/iamsaidakbarov"
+                target="_blank"
+                rel="noreferrer"
+                className="w-9 h-9 rounded-full bg-card hover:bg-sky-500/20 border border-border hover:border-sky-500 flex items-center justify-center transition-all group"
+                title="Telegram"
+              >
+                <Send className="w-4 h-4 text-muted-foreground group-hover:text-sky-400 transition-colors" />
               </a>
             </div>
           </div>
 
-          {/* Quick Links */}
+          {/* Quick Links — hammasi ishlaydi */}
           <div>
             <h4 className="font-semibold text-white mb-4">Quick Links</h4>
             <ul className="space-y-2">
-              <li><Link href="/"><a className="text-muted-foreground hover:text-foreground transition-colors text-sm">Home</a></Link></li>
-              <li><Link href="/products"><a className="text-muted-foreground hover:text-foreground transition-colors text-sm">Products</a></Link></li>
-              <li><Link href="/orders"><a className="text-muted-foreground hover:text-foreground transition-colors text-sm">Orders</a></Link></li>
-              <li><Link href="/help"><a className="text-muted-foreground hover:text-foreground transition-colors text-sm">Help</a></Link></li>
-              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors text-sm">Blog</a></li>
+              <li>
+                <Link to="/" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link to="/products" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
+                  Products
+                </Link>
+              </li>
+              <li>
+                <Link to="/orders" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
+                  Orders
+                </Link>
+              </li>
+              <li>
+                <Link to="/help" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
+                  Help
+                </Link>
+              </li>
+              <li>
+                <Link to="/cart" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
+                  Cart
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -74,11 +112,31 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold text-white mb-4">Support</h4>
             <ul className="space-y-2">
-              <li><Link href="/help"><a className="text-muted-foreground hover:text-foreground transition-colors text-sm">Contact Us</a></Link></li>
-              <li><Link href="/help"><a className="text-muted-foreground hover:text-foreground transition-colors text-sm">FAQ</a></Link></li>
-              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors text-sm">Shipping Info</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors text-sm">Returns</a></li>
-              <li><Link href="/orders"><a className="text-muted-foreground hover:text-foreground transition-colors text-sm">Track Order</a></Link></li>
+              <li>
+                <Link to="/help" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
+                  Contact Us
+                </Link>
+              </li>
+              <li>
+                <Link to="/help" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
+                  FAQ
+                </Link>
+              </li>
+              <li>
+                <Link to="/orders" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
+                  Track Order
+                </Link>
+              </li>
+              <li>
+                <Link to="/orders" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
+                  Returns
+                </Link>
+              </li>
+              <li>
+                <Link to="/help" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
+                  Shipping Info
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -86,35 +144,82 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold text-white mb-4">Company</h4>
             <ul className="space-y-2">
-              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors text-sm">About Us</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors text-sm">Careers</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors text-sm">Press</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors text-sm">Partners</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors text-sm">Sustainability</a></li>
+              <li>
+                <a
+                  href="https://www.linkedin.com/in/azamjon-saydahbarov-a55647406/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-muted-foreground hover:text-foreground transition-colors text-sm"
+                >
+                  About Us
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.linkedin.com/in/azamjon-saydahbarov-a55647406/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-muted-foreground hover:text-foreground transition-colors text-sm"
+                >
+                  Careers
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.instagram.com/iamsaidakbarov__/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-muted-foreground hover:text-foreground transition-colors text-sm"
+                >
+                  Press
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://t.me/iamsaidakbarov"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-muted-foreground hover:text-foreground transition-colors text-sm"
+                >
+                  Partners
+                </a>
+              </li>
             </ul>
           </div>
 
-          {/* Contact */}
+          {/* Contact — real ma'lumotlar */}
           <div>
             <h4 className="font-semibold text-white mb-4">Contact</h4>
             <ul className="space-y-3">
               <li className="flex items-start gap-3">
                 <Phone className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                <span className="text-muted-foreground text-sm">+1 (555) 123-4567</span>
+                <a
+                  href="tel:01083494111"
+                  className="text-muted-foreground hover:text-foreground text-sm transition-colors"
+                >
+                  010-8349-4111
+                </a>
               </li>
               <li className="flex items-start gap-3">
                 <Mail className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                <span className="text-muted-foreground text-sm">support@gizzy.com</span>
+                <a
+                  href="mailto:saydahbarovazamjon@gmail.com"
+                  className="text-muted-foreground hover:text-foreground text-sm transition-colors break-all"
+                >
+                  saydahbarovazamjon@gmail.com
+                </a>
               </li>
               <li className="flex items-start gap-3">
                 <MapPin className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                <span className="text-muted-foreground text-sm">123 Tech Street, Silicon Valley, CA 94025</span>
+                <span className="text-muted-foreground text-sm">
+                  Busan, South Korea
+                </span>
               </li>
             </ul>
           </div>
         </div>
 
-        {/* Bottom footer */}
+        {/* Bottom */}
         <div className="border-t border-border pt-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-muted-foreground text-sm">
