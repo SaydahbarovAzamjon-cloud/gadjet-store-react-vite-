@@ -264,11 +264,13 @@ export default function Header() {
             position: "fixed",
             inset: 0,
             zIndex: 9999,
-            background: "rgba(0,0,0,0.65)",
-            backdropFilter: "blur(10px)",        // ← orqa fon blur
-            WebkitBackdropFilter: "blur(10px)",
+            background: "rgba(0,0,0,0.75)",
+            backdropFilter: "blur(12px)",
+            WebkitBackdropFilter: "blur(12px)",
             display: "flex",
-            justifyContent: "flex-end",          // drawer o'ng tomondan
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "16px",
             animation: "cartFadeIn 0.2s ease",
           }}
         >
@@ -277,23 +279,26 @@ export default function Header() {
               from { opacity: 0; }
               to   { opacity: 1; }
             }
-            @keyframes cartSlideIn {
-              from { transform: translateX(100%); }
-              to   { transform: translateX(0); }
+            @keyframes cartSlideUp {
+              from { opacity: 0; transform: translateY(24px) scale(0.97); }
+              to   { opacity: 1; transform: translateY(0) scale(1); }
             }
           `}</style>
 
-          {/* ── Drawer panel ── */}
+          {/* ── Markaziy modal panel (ProductModal uslubida) ── */}
           <div
             style={{
               width: "100%",
-              maxWidth: "420px",
-              height: "100%",
-              background: "linear-gradient(180deg, #1e293b 0%, #0f172a 100%)",
-              borderLeft: "1px solid #334155",
+              maxWidth: "520px",
+              maxHeight: "88vh",
+              background: "linear-gradient(135deg, #1e293b 0%, #0f172a 100%)",
+              border: "1px solid #334155",
+              borderRadius: "20px",
+              boxShadow: "0 40px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(148,163,184,0.08)",
               display: "flex",
               flexDirection: "column",
-              animation: "cartSlideIn 0.25s cubic-bezier(0.34,1.2,0.64,1)",
+              animation: "cartSlideUp 0.25s cubic-bezier(0.34,1.56,0.64,1)",
+              overflow: "hidden",
             }}
           >
             {/* Drawer sarlavhasi */}
@@ -476,8 +481,8 @@ export default function Header() {
               <div style={{
                 padding: "20px 24px",
                 borderTop: "1px solid #334155",
-                background: "#1e293b",
-                flexShrink: 0,
+                background: "rgba(255,255,255,0.03)",
+              flexShrink: 0,
               }}>
                 {/* Narx summary */}
                 <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginBottom: "16px" }}>
