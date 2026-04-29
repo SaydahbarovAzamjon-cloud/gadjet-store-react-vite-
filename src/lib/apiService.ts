@@ -1,8 +1,9 @@
 import axios from "axios";
 
-// baseURL is empty — all requests go through Vite proxy (avoids CORS & cookie issues)
+// In dev: baseURL is empty, Vite proxy handles API calls (see vite.config.ts)
+// In production: VITE_API_URL env variable points to the backend
 const apiService = axios.create({
-  baseURL: "",
+  baseURL: import.meta.env.VITE_API_URL || "",
   withCredentials: true,
 });
 
