@@ -1,13 +1,12 @@
 import { TrendingUp, Users, ShoppingBag, Package } from "lucide-react";
 import { useEffect, useState } from "react";
 import apiService from "@/lib/apiService";
-import { useAuth } from "@/app/components/auth/AuthContext";
 
 // /stats endpoint dan keladigan real ma'lumot tipi
 interface StatsData {
   totalProducts: number;       // barcha active productlar
   totalMembers: number;        // barcha active userlar
-  totalFinishedOrders: number; // tugallangan orderlar (pul to'langan)
+  totalFinishedOrders: number; // tugallangan orderlar — BARCHA userlarniki
   newProducts: number;         // so'nggi 30 kun ichida qo'shilgan productlar
 }
 
@@ -19,24 +18,27 @@ export default function StatisticsSection() {
     newProducts: 0,
   });
   const [loading, setLoading] = useState(true);
-  const { isAuthenticated } = useAuth();
 
-  // Mavjud endpointlardan parallel real data olish
+  // FIX 1: isAuthenticated tekshiruvi olib tashlandi.
+  // /order/all?orderStatus=FINISH — BARCHA userlarning tugallangan orderlari.
+  // Login bo'lmasa ham ko'rsatiladi (umumiy statistika).
   useEffect(() => {
     Promise.all([
       // Barcha productlar (PROCESS = active)
       apiService.get("/product/all?page=1&limit=1000"),
       // Registered members
       apiService.get("/member/top-users"),
-      // Finished orders — faqat login bo'lsa, yo'q bo'lsa null qaytaradi
-      isAuthenticated
-        ? apiService.get("/order/all?page=1&limit=1000&orderStatus=FINISH")
-        : Promise.resolve({ data: [] }),
+      // FINISH orderlari — xato bo'lsa [] qaytariladi
+      apiService.get("/order/all?page=1&limit=1000&orderStatus=FINISH").catch(() => ({ data: [] })),
     ])
       .then(([productsRes, membersRes, ordersRes]) => {
         const products = productsRes.data ?? [];
         const members  = membersRes.data  ?? [];
-        const orders   = ordersRes.data   ?? [];
+        // Response strukturasini normalize qilish
+        const rawOrders = ordersRes.data;
+        const orders: any[] = Array.isArray(rawOrders)
+          ? rawOrders
+          : (rawOrders?.data ?? []);
 
         const now = new Date();
         const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
@@ -56,7 +58,6 @@ export default function StatisticsSection() {
       .finally(() => setLoading(false));
   }, []);
 
-  // Ko'rsatiladigan kartalar — hammasi real data
   const cards = [
     {
       icon: Package,
@@ -108,7 +109,6 @@ export default function StatisticsSection() {
                   </div>
 
                   <div>
-                    {/* Loading bo'lsa pulse, bo'lmasa haqiqiy raqam */}
                     {loading ? (
                       <div className="h-10 w-16 bg-muted animate-pulse rounded mb-1" />
                     ) : (

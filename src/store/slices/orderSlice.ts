@@ -19,33 +19,33 @@ export const fetchOrders = createAsyncThunk(
   }
 );
 
-// ─── YANGI: barcha statuslardagi orderlardan statistika hisoblash ─────────────
-// PAUSE + PROCESS + FINISH statuslaridan parallel yuklaydi,
-// jami orders soni va sarflangan pulni qaytaradi.
-// CheckoutPage va OrdersPage da dispatch(fetchOrderStats()) bilan yangilanadi.
+// ─── FIX 2: Faqat PROCESS + FINISH orderlardan statistika hisoblash ───────────
+// PAUSE = faqat basket/checkout bosqichi (hali to'lanmagan).
+// Statistikaga faqat to'langan (PROCESS) va yetkazilgan (FINISH) orderlar kiradi.
+// Shuning uchun PAUSE parallel fetchdan olib tashlandi.
 export const fetchOrderStats = createAsyncThunk(
   "orders/fetchStats",
   async (_, { rejectWithValue }) => {
     try {
-      // 3 ta status parallel ravishda yuklanadi (tezlik uchun)
-      const [pausedRes, processRes, finishRes] = await Promise.all([
-        apiService.get("/order/all?page=1&limit=1000&orderStatus=PAUSE"),
+      // Faqat 2 ta status: PROCESS (to'langan) + FINISH (yetkazilgan)
+      // PAUSE (basket qo'shilgan, to'lanmagan) hisobga olinmaydi
+      const [processRes, finishRes] = await Promise.all([
         apiService.get("/order/all?page=1&limit=1000&orderStatus=PROCESS"),
         apiService.get("/order/all?page=1&limit=1000&orderStatus=FINISH"),
       ]);
 
       // Har bir response ni normallashtirish
-      const paused:  any[] = pausedRes.data.data  ?? pausedRes.data  ?? [];
       const process: any[] = processRes.data.data ?? processRes.data ?? [];
       const finish:  any[] = finishRes.data.data  ?? finishRes.data  ?? [];
 
-      const allOrders = [...paused, ...process, ...finish];
+      // Faqat to'langan orderlar
+      const paidOrders = [...process, ...finish];
 
-      // Jami orderlar soni (barcha statuslar)
-      const totalOrders = allOrders.length;
+      // Jami to'langan orderlar soni
+      const totalOrders = paidOrders.length;
 
       // Jami sarflangan pul (barcha orderTotal lar yig'indisi)
-      const totalSpent = allOrders.reduce(
+      const totalSpent = paidOrders.reduce(
         (sum: number, order: any) => sum + (order.orderTotal || 0),
         0
       );
@@ -66,10 +66,10 @@ const ordersSlice = createSlice({
     loading: false,
     error: null as string | null,
 
-    // ─── Yangi: order statistikasi ───────────────────────────────────────────
+    // ─── Order statistikasi (faqat to'langan: PROCESS + FINISH) ─────────────
     stats: {
-      totalOrders: 0,     // shu paytgacha nechta order qilingan
-      totalSpent: 0,      // shu paytgacha qancha pul sarflangan ($)
+      totalOrders: 0,     // to'langan orderlar soni
+      totalSpent: 0,      // jami sarflangan pul ($)
       statsLoading: false,
     },
   },
@@ -89,7 +89,7 @@ const ordersSlice = createSlice({
         state.error = action.payload as string;
       });
 
-    // ── fetchOrderStats (yangi) ───────────────────────────────────────────────
+    // ── fetchOrderStats ───────────────────────────────────────────────────────
     builder
       .addCase(fetchOrderStats.pending, (state) => {
         state.stats.statsLoading = true;
