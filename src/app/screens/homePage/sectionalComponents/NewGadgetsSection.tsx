@@ -1,5 +1,4 @@
 import { ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
 import ProductGrid from "../../productsPage/sectionalComponents/ProductGrid";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { fetchProducts } from "@/store/slices/productsSlice";
@@ -11,7 +10,7 @@ export default function NewGadgetsSection() {
 
   useEffect(() => {
     // Agar hali yuklanmagan bo'lsa, yuklab olish
-    if (products.length === 0) dispatch(fetchProducts());
+    if (products.length === 0) dispatch(fetchProducts({}));
   }, [dispatch, products.length]);
 
   // Oxirgi 8 ta product — "New" deb belgilash
@@ -40,9 +39,9 @@ export default function NewGadgetsSection() {
             <h2 className="text-3xl md:text-4xl font-bold mb-2">Best Selling Products</h2>
             <p className="text-muted-foreground">Check out our latest arrivals and best sellers</p>
           </div>
-          <Link to="/products" className="hidden md:flex items-center gap-2 text-accent hover:text-accent/80 transition-colors">
+          <a href="/products" className="hidden md:flex items-center gap-2 text-accent hover:text-accent/80 transition-colors">
             View all <ArrowRight className="w-4 h-4" />
-          </Link>
+          </a>
         </div>
         {loading ? (
           <p className="text-muted-foreground text-center py-8">Loading...</p>

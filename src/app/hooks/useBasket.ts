@@ -26,7 +26,7 @@ const useBasket = () => {
 
   const onRemove = (product: CartItem) => {
     const exist = cartItems.find((x) => x._id === product._id);
-    if (exist.quantity === 1) {
+    if (exist?.quantity === 1) {
       setCartItems(cartItems.filter((x) => x._id !== product._id));
     } else {
       setCartItems(

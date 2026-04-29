@@ -5,7 +5,7 @@ import ProductsPage from "./screens/productsPage";
 import OrdersPage from "./screens/ordersPage";
 import UsersPage from "./screens/userPage";
 import HelpPage from "./screens/helpPage";
-import HomeNavbar from './components/headers/HomeNavbar';
+import HomeNavbar from './components/headers/Header';
 import OtherNavbar from "./components/headers/OtherNavbar";
 import Footer from "./components/footer";
 import AuthenticationModal from "./components/auth";
@@ -55,7 +55,7 @@ function App() {
         handlerLogoutRequest={handlerLogoutRequest}
       />
       <main>
-        <Route path="/" exact element={<HomePage />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/products" element={<ProductsPage onAdd={onAdd} />} />
         <Route path="/orders" element={<OrdersPage />} />
         <Route path="/member-page" element={<UsersPage />} />
