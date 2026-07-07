@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import ErrorBoundary from "./app/components/errors/ErrorBoundary";
 import { ThemeProvider } from "./app/components/ThemeContext";
 import { AuthProvider } from "./app/components/auth/AuthContext";
+import { SocketProvider } from "./app/components/SocketContext";
 
 import Home from "./app/screens/homePage/Home";
 import ProductsPage from "./app/screens/productsPage/ProductsPage";
@@ -60,6 +61,7 @@ function App() {
     <ErrorBoundary>
       <BrowserRouter>
         <AuthProvider>
+        <SocketProvider>
         <ThemeProvider
           defaultTheme="dark"
         >
@@ -68,6 +70,7 @@ function App() {
             <Router />
           </TooltipProvider>
         </ThemeProvider>
+        </SocketProvider>
       </AuthProvider>
       </BrowserRouter>
     </ErrorBoundary>
