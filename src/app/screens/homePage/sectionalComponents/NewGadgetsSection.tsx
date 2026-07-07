@@ -2,6 +2,7 @@ import { ArrowRight } from "lucide-react";
 import ProductGrid from "../../productsPage/sectionalComponents/ProductGrid";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { fetchProducts } from "@/store/slices/productsSlice";
+import { getImageUrl } from "@/lib/getImageUrl";
 import { useEffect } from "react";
 
 export default function NewGadgetsSection() {
@@ -22,7 +23,7 @@ export default function NewGadgetsSection() {
       price: p.productPrice,
       rating: 4.5,
       reviews: 0,
-      image: p.productImages?.[0] || "https://d2xsxph8kpxj0f.cloudfront.net/310519663464643074/QaGTRRsJqyabPS7Ai9zqHt/category-mobile-iEfgQ9ZxTndYjmqT3Mesnn.webp",
+      image: getImageUrl(p.productImages?.[0]) || "https://d2xsxph8kpxj0f.cloudfront.net/310519663464643074/QaGTRRsJqyabPS7Ai9zqHt/category-mobile-iEfgQ9ZxTndYjmqT3Mesnn.webp",
       images: p.productImages,
       views: p.productViews,
       category: p.productCategory,

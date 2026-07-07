@@ -5,6 +5,7 @@ import { User, MapPin, CreditCard, LogOut, Upload, Camera, Pencil, Trash2, Plus,
 import { useState, useRef, useEffect } from "react";
 import { useAuth } from "@/app/components/auth/AuthContext";
 import apiService from "@/lib/apiService";
+import { getImageUrl } from "@/lib/getImageUrl";
 import { useAppDispatch } from "@/hooks/redux";
 import { verifyAuth } from "@/store/slices/authSlice";
 
@@ -257,7 +258,7 @@ export default function MyPage() {
                         {/* FIX 1: profileImage null bo'lsa harf avatar ko'rsatiladi */}
                         <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-accent shadow-lg">
                           {profileImage ? (
-                            <img src={profileImage} alt="Profile" className="w-full h-full object-cover" />
+                            <img src={getImageUrl(profileImage)} alt="Profile" className="w-full h-full object-cover" />
                           ) : (
                             <div className="w-full h-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
                               <span className="text-4xl font-bold text-white">

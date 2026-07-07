@@ -6,6 +6,7 @@ import { onAdd } from "@/store/slices/basketSlice";
 import { updateProductViews } from "@/store/slices/productsSlice";
 import { useAuth } from "@/app/components/auth/AuthContext";
 import apiService from "@/lib/apiService";
+import { getImageUrl } from "@/lib/getImageUrl";
 import { useState } from "react";
 
 interface ModalProduct {
@@ -228,7 +229,7 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
             {/* Main image */}
             <div style={{ position: "relative", width: "100%", aspectRatio: "1/1", maxHeight: "300px" }}>
               <img
-                src={images[currentImg]}
+                src={getImageUrl(images[currentImg])}
                 alt={product.name}
                 style={{
                   width: "100%",
@@ -305,7 +306,7 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
                       transition: "border-color 0.2s",
                     }}
                   >
-                    <img src={img} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                    <img src={getImageUrl(img)} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                   </button>
                 ))}
               </div>

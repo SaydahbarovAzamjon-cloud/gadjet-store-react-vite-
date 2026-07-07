@@ -8,6 +8,7 @@ import ProductGrid from "@/app/screens/productsPage/sectionalComponents/ProductG
 import StatisticsSection from "@/app/screens/homePage/sectionalComponents/StatisticsSection";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { fetchProducts } from "@/store/slices/productsSlice";
+import { getImageUrl } from "@/lib/getImageUrl";
 
 const categories = [
   { id: 1, name: "PHONE",   label: "Mobile Phones", icon: Smartphone },
@@ -62,7 +63,7 @@ export default function ProductsPage() {
     rating: 4.5,
     reviews: 0,
     image:
-      p.productImages?.[0] ||
+      getImageUrl(p.productImages?.[0]) ||
       "https://d2xsxph8kpxj0f.cloudfront.net/310519663464643074/QaGTRRsJqyabPS7Ai9zqHt/category-mobile-iEfgQ9ZxTndYjmqT3Mesnn.webp",
     images: p.productImages,
     views: p.productViews,

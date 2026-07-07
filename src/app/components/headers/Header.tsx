@@ -8,6 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/app/components/auth/AuthContext";
 import { useAppSelector, useAppDispatch } from "@/hooks/redux";
 import { onAdd, onRemove, onDelete, CartItem } from "@/store/slices/basketSlice";
+import { getImageUrl } from "@/lib/getImageUrl";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -145,7 +146,7 @@ export default function Header() {
                     <div className="w-10 h-10 rounded-full overflow-hidden cursor-pointer hover:shadow-lg transition-shadow flex-shrink-0">
                       {user?.memberImage ? (
                         <img
-                          src={user.memberImage}
+                          src={getImageUrl(user.memberImage)}
                           alt={user.memberNick}
                           className="w-full h-full object-cover"
                         />

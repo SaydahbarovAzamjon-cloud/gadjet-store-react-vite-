@@ -10,6 +10,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "@/app/components/auth/AuthContext";
 import { useAppSelector, useAppDispatch } from "@/hooks/redux";
 import apiService from "@/lib/apiService";
+import { getImageUrl } from "@/lib/getImageUrl";
 import { fetchOrders, fetchOrderStats } from "@/store/slices/orderSlice";
 
 // Backend Order tipi (aggregate dan keladi)
@@ -117,7 +118,7 @@ export default function OrdersPage() {
     const firstItem = order.orderItems?.[0];
     if (!firstItem) return FALLBACK_IMAGE;
     const product = order.productData?.find((p) => p._id === firstItem.productId);
-    return product?.productImages?.[0] || FALLBACK_IMAGE;
+    return getImageUrl(product?.productImages?.[0]) || FALLBACK_IMAGE;
   };
 
   // Birinchi product nomini olish (+ qolgan soni)
@@ -156,7 +157,7 @@ export default function OrdersPage() {
                     {user?.memberImage ? (
                       // Haqiqiy profil rasmi (MyPage da upload qilingan)
                       <img
-                        src={user.memberImage}
+                        src={getImageUrl(user.memberImage)}
                         alt={user.memberNick}
                         className="w-full h-full object-cover"
                       />

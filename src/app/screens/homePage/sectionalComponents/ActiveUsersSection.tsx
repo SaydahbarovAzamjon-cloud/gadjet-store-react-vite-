@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Trophy, MapPin, FileText } from "lucide-react";
 import apiService from "@/lib/apiService";
+import { getImageUrl } from "@/lib/getImageUrl";
 import { useAuth } from "@/app/components/auth/AuthContext";
 
 // Backend /member/top-users dan kelgan tip
@@ -104,7 +105,7 @@ export default function ActiveUsersSection() {
                 {/* Avatar */}
                 {topUser.memberImage ? (
                   <img
-                    src={`http://localhost:2005/${topUser.memberImage}`}
+                    src={getImageUrl(topUser.memberImage)}
                     alt={topUser.memberNick}
                     className="w-16 h-16 rounded-full object-cover mx-auto mb-4"
                   />
