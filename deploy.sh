@@ -9,4 +9,7 @@ npm i yarn -g
 yarn global add serve
 yarn
 yarn run build
-pm2 start cmd --name GADJET-REACT -- /c yarn start:prod
+# Eski (buzuq) jarayonni tozalab, PM2 ning o'z static-serveri bilan ishga tushiramiz.
+# --spa: React Router uchun har yo'lni index.html ga yo'naltiradi (serve/yarn kerak emas).
+pm2 delete GADJET-REACT 2>/dev/null || true
+pm2 serve dist 80 --spa --name GADJET-REACT
